@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Components/Navbar.jsx";
 import Search from "./Components/Search.jsx";
+import Genre from "./Components/Genre.jsx";
 import ArtistList from "./Components/ArtistList.jsx";
 import SongsList from "./Components/SongsList.jsx";
 import axios from "axios";
@@ -15,9 +16,14 @@ class Home extends React.Component {
       search: "",
       artist: "",
       city: "San Francisco",
-      route: ""
+      route: "",
+      genre: "",
+      artistByGenreData: [],
+      isRenderingByGenre: false
     };
+    this.setIsRenderingByGenre = this.setIsRenderingByGenre.bind(this);
     this.setArtist = this.setArtist.bind(this);
+    this.setArtistByGenre = this.setArtistByGenre.bind(this);
   }
 
   /**
@@ -28,6 +34,13 @@ class Home extends React.Component {
     this.setState({
       currentUser: currentUser
     });
+  }
+
+  setIsRenderingByGenre(boolean) {
+    this.setState({
+      isRenderingByGenre: boolean
+    });
+    // console.log('hello', this.state.isRenderingByGenre);
   }
 
   /**
@@ -137,6 +150,18 @@ class Home extends React.Component {
     });
   }
 
+  setArtistByGenre(genre) {
+    axios({
+      method: "post",
+      url: "/initArtistByGenre",
+      data: { genre: genre }
+    }).then(artist => {
+      let newState = Object.assign({}, this.state);
+      newState.artistByGenreData = artist.data;
+      this.setState({ artistByGenreData: artist.data});
+    });
+  }
+
   /**
    * setTracks sets state of tracks
    * @param {array} tracks array of tracks returned from database
@@ -189,9 +214,16 @@ class Home extends React.Component {
             onClick={this.searchClickHandler.bind(this)}
             onChange={this.onChange.bind(this)}
           />
+          <Genre
+            artistByGenre={this.state.artistByGenreData}
+            handleGenreClick={this.setIsRenderingByGenre}
+            searchArtistByGenre={this.setArtistByGenre}
+          />
           <br />
           <div className="row">
             <ArtistList
+              isRenderingByGenre ={this.state.isRenderingByGenre}
+              artistByGenre={this.state.artistByGenreData}
               facebookId={this.props.facebookId}
               artists={this.state.artists}
               setArtist={this.setArtist}

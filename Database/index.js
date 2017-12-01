@@ -1,5 +1,5 @@
 const pg = require('pg');
-// const dbPassword = require("../config/config.js").dbPassword;
+const dbPassword = require("../config/config.js").dbPassword;
 
 const connection =
   process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5432/artists';
@@ -35,8 +35,13 @@ const Single = bookshelf.Model.extend({
   tableName: 'single',
 });
 
+let Artist_Genre = bookshelf.Model.extend({
+  tableName: "artist_genre"
+});
+
 module.exports.knex = knex;
 module.exports.Artist = Artist;
+module.exports.Artist_Genre = Artist_Genre;
 module.exports.Date = Date;
 module.exports.Artist_Availability = Artist_Availability;
 module.exports.Requested_Gigs = Requested_Gigs;

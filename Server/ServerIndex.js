@@ -13,6 +13,7 @@ const saveUser = require("../Database/dbFunction.js").saveUser;
 const checkArtistTable = require("../Database/dbFunction.js").checkArtistTable;
 const checkUsersTable = require("../Database/dbFunction.js").checkUsersTable;
 const getArtists = require("../Database/dbFunction.js").getArtists;
+const getArtistsByGenre = require("../Database/dbFunction.js").getArtistsByGenre;
 const getTracks = require("../Database/dbFunction.js").getTracks;
 const getChatrooms = require("../Database/dbFunction.js").getChatrooms;
 const getCurrentUser = require("../Database/dbFunction.js").getCurrentUser;
@@ -24,6 +25,14 @@ app.use(express.static(__dirname + "/../client/dist"));
 app.post("/initArtists", (req, res) => {
   let city = req.body.city;
   getArtists(city).then(artists => {
+    res.json(artists);
+  });
+});
+
+app.post("/initArtistByGenre", (req, res) => {
+  let genre = req.body.genre;
+  console.log('genre in server', genre);
+  getArtistsByGenre(genre).then(artists => {
     res.json(artists);
   });
 });

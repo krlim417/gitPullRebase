@@ -5,6 +5,7 @@ import Artist from "./Artist.jsx";
 const ArtistList = props => {
   return (
     <div className="col artistList">
+    {console.log('in list', props.isRenderingByGenre)}
       <h5>Artists Available in {props.city}</h5>
       <br />
       <ol>
