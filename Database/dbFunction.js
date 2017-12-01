@@ -33,6 +33,13 @@ const getArtists = city => table.Artist.forge()
   .query()
   .select();
 
+let getArtistsByGenre = genre => {
+  return table.Artist_Genre.forge()
+    .where("genre", "like", `%${genre}%`)
+    .query()
+    .select();
+};
+
 /** getTracks gets all the tracks from the artist
  * @param  {string} artist name of artist
  */
@@ -77,6 +84,7 @@ module.exports.saveUser = saveUser;
 module.exports.checkArtistTable = checkArtistTable;
 module.exports.checkUsersTable = checkUsersTable;
 module.exports.getArtists = getArtists;
+module.exports.getArtistsByGenre = getArtistsByGenre;
 module.exports.getTracks = getTracks;
 module.exports.getChatrooms = getChatrooms;
 module.exports.getCurrentUser = getCurrentUser;
