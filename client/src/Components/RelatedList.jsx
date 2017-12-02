@@ -2,14 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';  
 import Navbar from './Navbar.jsx'
 import axios from 'axios';
+import RelatedArtist from "./RelatedArtist.jsx";
 
 const RelatedList = ( { artists } ) => {
     return (
       <div>
         <h3>Related Artists List</h3>
           <ul>
-            <li>{artists[0]}</li>
-            <li>{artists[1]}</li>
+            {artists.map(function(artist, index) {
+              return (
+                <li key={index}>
+                  <RelatedArtist 
+                   artist={artist}
+                  />
+                </li>
+              )
+            })}
           </ul>
       </div>
     );

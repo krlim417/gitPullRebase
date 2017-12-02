@@ -151,10 +151,9 @@ class Home extends React.Component {
       url: "/initTracks",
       data: { artist: artist }
     }).then( (tracks) => {
-      
-      pull(uri, (artists) => {
-        console.log('store', this.props.store);
-        this.props.store.dispatch(setArtists(artists));
+      pull(uri, (results) => {
+        console.log('store', results.data.artists);
+        this.props.store.dispatch(setArtists(results.data.artists));
       });
       this.setState({
         artist: artist,
