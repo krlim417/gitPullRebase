@@ -33,9 +33,10 @@ const getArtists = city => table.Artist.forge()
   .query()
   .select();
 
-let getArtistsByGenre = genre => {
+let getArtistsByGenre = (genre, city) => {
   return table.Artist_Genre.forge()
     .where("genre", "like", `%${genre}%`)
+    .where("city", "=", city)
     .query()
     .select();
 };

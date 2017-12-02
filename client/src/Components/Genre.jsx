@@ -10,9 +10,16 @@ class genreFilter extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  setGenreName(genre) {
+    if (genre === 'electro') {
+      return 'Electronic';
+    } else {
+      return genre.charAt(0).toUpperCase() + genre.slice(1);
+    }
+  }
+
   handleClick(e) {
     e.preventDefault();
-    // console.log('valueee', e.target.value);
     let newStateToSet = this.state;
     let genre = e.target.value;
 
@@ -20,16 +27,13 @@ class genreFilter extends React.Component {
       newStateToSet.clicked = false;
       this.setState(newStateToSet);
       this.props.handleGenreClick(false);
-      console.log('removing filter!', this.state)
-
     } else {
       newStateToSet.genre = genre;
       newStateToSet.clicked = true;
       this.props.searchArtistByGenre(e.target.value);
       this.setState(newStateToSet);
+      this.props.setGenre(this.setGenreName(genre));
       this.props.handleGenreClick(true);
-      console.log('setting genre', genre);
-
     }
   }
 
@@ -38,7 +42,7 @@ class genreFilter extends React.Component {
       <div>
         <br/>
         <div>Genre to filter artists by:</div>
-        <button className="btn btn-primary" onClick={this.handleClick} name="selectGenre" value="electro">Electronic/Dance</button>
+        <button className="btn btn-primary" onClick={this.handleClick} name="selectGenre" value="electro">Electronic</button>
         <button className="btn btn-primary" onClick={this.handleClick} name="selectGenre" value="funk">Funk</button>
         <button className="btn btn-primary" onClick={this.handleClick} name="selectGenre" value="hip hop">Hiphop</button>
         <button className="btn btn-primary" onClick={this.handleClick} name="selectGenre" value="k-hop">K-hop</button>

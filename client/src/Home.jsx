@@ -36,11 +36,16 @@ class Home extends React.Component {
     });
   }
 
+  setGenre(genre) {
+    this.setState({
+      genre: genre
+    });
+  }
+
   setIsRenderingByGenre(boolean) {
     this.setState({
       isRenderingByGenre: boolean
     });
-    // console.log('hello', this.state.isRenderingByGenre);
   }
 
   /**
@@ -154,11 +159,34 @@ class Home extends React.Component {
     axios({
       method: "post",
       url: "/initArtistByGenre",
-      data: { genre: genre }
-    }).then(artist => {
-      let newState = Object.assign({}, this.state);
-      newState.artistByGenreData = artist.data;
-      this.setState({ artistByGenreData: artist.data});
+      data: { genre: genre, city: this.state.city }
+    }).then(returnedArtists => {
+      this.setState({ artistByGenreData: returnedArtists.data });
+      if (returnedArtists.data.length > 0) {
+        let artist = returnedArtists.data[0].username;
+        let artists = returnedArtists.data;
+        let dataObj = {
+          artist: artist,
+          artists: artists
+        };
+        axios({
+          method: "post",
+          url: "/initTracks",
+          data: dataObj
+        }).then(returnedTracks => {
+          this.setState({
+            artist: artist,
+            artists: artists,
+            tracks: returnedTracks.data
+          });
+        });
+      } else {
+        this.setState({
+          artist: '',
+          artists: '',
+          tracks: ''
+        })
+      }
     });
   }
 
@@ -215,6 +243,7 @@ class Home extends React.Component {
             onChange={this.onChange.bind(this)}
           />
           <Genre
+            setGenre={this.setGenre.bind(this)}
             artistByGenre={this.state.artistByGenreData}
             handleGenreClick={this.setIsRenderingByGenre}
             searchArtistByGenre={this.setArtistByGenre}
@@ -222,7 +251,8 @@ class Home extends React.Component {
           <br />
           <div className="row">
             <ArtistList
-              isRenderingByGenre ={this.state.isRenderingByGenre}
+              genre={this.state.genre}
+              isRenderingByGenre={this.state.isRenderingByGenre}
               artistByGenre={this.state.artistByGenreData}
               facebookId={this.props.facebookId}
               artists={this.state.artists}
