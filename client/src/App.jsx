@@ -53,6 +53,7 @@ class App extends React.Component {
                 facebookId={this.state.facebookId}
                 setFacebookId={this.setFacebookId}
                 route={this.state.route}
+                store={this.props.store}
               />
             )}
           />

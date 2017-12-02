@@ -7,6 +7,7 @@ import RelatedList from "./Components/RelatedList.jsx";
 import SongsList from "./Components/SongsList.jsx";
 import axios from "axios";
 import pull from './Spotify/caller'
+import { setArtists } from "./Reducer/Artists/actions";
 
 class Home extends React.Component {
   constructor(props) {
@@ -150,8 +151,11 @@ class Home extends React.Component {
       url: "/initTracks",
       data: { artist: artist }
     }).then( (tracks) => {
-
-      pull(uri);
+      
+      pull(uri, (artists) => {
+        console.log('store', this.props.store);
+        this.props.store.dispatch(setArtists(artists));
+      });
       this.setState({
         artist: artist,
         tracks: tracks.data

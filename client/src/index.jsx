@@ -12,13 +12,13 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
-store.dispatch(getArtists()); 
+// store.dispatch(getArtists()); 
 
 const RenderApp = () => {
   render(
     <Router>
       <Provider store={store}>
-          <App />
+          <App store={store}/>
       </Provider>
     </Router>, document.getElementById('app'));
 }
