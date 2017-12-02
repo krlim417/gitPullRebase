@@ -7,7 +7,7 @@ import RelatedArtist from "./RelatedArtist.jsx";
 const RelatedList = ( { artists } ) => {
     return (
       <div>
-        <h3>Related Artists List</h3>
+        <h5>Related Artists List</h5>
           <ul>
             {artists.map(function(artist, index) {
               return (

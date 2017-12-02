@@ -9,8 +9,7 @@ const pull = (uri, callback) => {
         Authorization: spotify.oAuth,
       },
     })
-    .then((responce) => {
-      console.log(responce);
+    .then((responce) => { 
       callback(responce);
     })
     .catch((error) => {

@@ -152,7 +152,6 @@ class Home extends React.Component {
       data: { artist: artist }
     }).then( (tracks) => {
       pull(uri, (results) => {
-        console.log('store', results.data.artists);
         this.props.store.dispatch(setArtists(results.data.artists));
       });
       this.setState({
