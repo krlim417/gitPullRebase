@@ -51,6 +51,14 @@ exports.up = function (knex, Promise) {
       table.string('single_id');
       table.string('artist');
     }),
+    knex.schema.createTable('artist_genre', function(table) {
+      table.increments('id').primary();
+      table.string('genre');
+      table.string('username');
+      table.string('city');
+      table.string('image');
+      table.string('uri');
+    })
   ]);
 };
 
@@ -68,5 +76,6 @@ exports.down = function (knex, Promise) {
       // .dropTable('artist_availability')
       .dropTable('requested_gigs')
       .dropTable('single')
+      .dropTable('artist_genre')
   );
 };

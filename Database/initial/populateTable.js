@@ -36,12 +36,15 @@ exports.seed = function (knex, Promise) {
       // Populates artist table
       for (let artist = 0; artist < sampleArtistsSF.length; artist++) {
         artistPromises.push(createSFArtist(knex, sampleArtistsSF[artist]));
+        artistPromises.push(createArtistGenre(knex, sampleArtistsSF[artist], "San Francisco"));
       }
       for (let artist = 0; artist < sampleArtistsLA.length; artist++) {
         artistPromises.push(createLAArtist(knex, sampleArtistsLA[artist]));
+        artistPromises.push(createArtistGenre(knex, sampleArtistsLA[artist], "Los Angeles"));
       }
       for (let artist = 0; artist < sampleArtistsNY.length; artist++) {
         artistPromises.push(createNYArtist(knex, sampleArtistsNY[artist]));
+        artistPromises.push(createArtistGenre(knex, sampleArtistsNY[artist], "New York"));
       }
 
       // Populates date table
@@ -157,6 +160,16 @@ const createSingle = (knex, artist, id) =>
     single_id: id,
     artist,
   });
+
+const createArtistGenre = (knex, artist, city) => {
+  return knex("artist_genre").insert({
+    genre: artist.genres,
+    username: artist.name,
+    city: city,
+    image: artist.images[0].url,
+    uri: artist.uri
+  });
+}
 
 /**
  * @param {Promise} knex SQL builder

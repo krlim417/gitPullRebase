@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Components/Navbar.jsx";
 import Search from "./Components/Search.jsx";
+import Genre from "./Components/Genre.jsx";
 import ArtistList from "./Components/ArtistList.jsx";
 import RelatedList from "./Components/RelatedList.jsx";
 import SongsList from "./Components/SongsList.jsx";
@@ -16,9 +17,14 @@ class Home extends React.Component {
       search: "",
       artist: "",
       city: "San Francisco",
-      route: ""
+      route: "",
+      genre: "",
+      artistByGenreData: [],
+      isRenderingByGenre: false
     };
+    this.setIsRenderingByGenre = this.setIsRenderingByGenre.bind(this);
     this.setArtist = this.setArtist.bind(this);
+    this.setArtistByGenre = this.setArtistByGenre.bind(this);
   }
 
   /**
@@ -28,6 +34,18 @@ class Home extends React.Component {
   setCurrentUser(currentUser) {
     this.setState({
       currentUser: currentUser
+    });
+  }
+
+  setGenre(genre) {
+    this.setState({
+      genre: genre
+    });
+  }
+
+  setIsRenderingByGenre(boolean) {
+    this.setState({
+      isRenderingByGenre: boolean
     });
   }
 
@@ -138,6 +156,60 @@ class Home extends React.Component {
     });
   }
 
+  setSongsToFirstArtist() {
+    let artist = this.state.artists[0].username;
+    let artists = this.state.artists;
+    let dataObj = {
+      artist: artist,
+      artists: artists,
+    };
+    axios({
+      method: "post",
+      url: "/initTracks",
+      data: dataObj
+    }).then(returnedTracks => {
+      this.setState({
+        artist: artist,
+        artists: artists,
+        tracks: returnedTracks.data
+      });
+    });
+  }
+
+  setArtistByGenre(genre) {
+    axios({
+      method: "post",
+      url: "/initArtistByGenre",
+      data: { genre: genre, city: this.state.city }
+    }).then(returnedArtists => {
+      this.setState({ artistByGenreData: returnedArtists.data });
+      if (returnedArtists.data.length > 0) {
+        let artist = returnedArtists.data[0].username;
+        let artists = returnedArtists.data;
+        let dataObj = {
+          artist: artist,
+          artists: artists
+        };
+        axios({
+          method: "post",
+          url: "/initTracks",
+          data: dataObj
+        })
+        .then(returnedTracks => {
+          this.setState({
+            artist: artist,
+            // artists: artists,
+            tracks: returnedTracks.data
+          });
+        });
+      } else {
+        this.setState({
+          tracks: []
+        })
+      }
+    });
+  }
+
   /**
    * setTracks sets state of tracks
    * @param {array} tracks array of tracks returned from database
@@ -156,6 +228,7 @@ class Home extends React.Component {
     }).then(returnedArtists => {
       let artist = returnedArtists.data[0].username;
       let artists = returnedArtists.data;
+      console.log('initial artists', artists);
       let dataObj = {
         artist: artist,
         artists: artists
@@ -175,22 +248,41 @@ class Home extends React.Component {
   }
 
   render() {
-    return <div>
+    return (
+      <div>
         <Navbar route={this.props.route} setFacebookId={this.props.setFacebookId} />
         <div className="landing-wrapper">
-          <div className="landing" />
+          <div className="landing" ></div>
         </div>
         <div className="container">
           <br />
           <Search onClick={this.searchClickHandler.bind(this)} onChange={this.onChange.bind(this)} />
           <br />
+          <Genre
+            setGenre={this.setGenre.bind(this)}
+            artistByGenre={this.state.artistByGenreData}
+            handleGenreClick={this.setIsRenderingByGenre}
+            searchArtistByGenre={this.setArtistByGenre}
+            setSongsToFirstArtist={this.setSongsToFirstArtist.bind(this)}
+          />
+          <br />
           <div className="row">
-            <ArtistList facebookId={this.props.facebookId} artists={this.state.artists} setArtist={this.setArtist} setTracks={this.setTracks} city={this.state.city} />
+            <ArtistList
+              genre={this.state.genre}
+              isRenderingByGenre={this.state.isRenderingByGenre}
+              artistByGenre={this.state.artistByGenreData}
+              facebookId={this.props.facebookId}
+              artists={this.state.artists}
+              setArtist={this.setArtist}
+              setTracks={this.setTracks}
+              city={this.state.city}
+            />
             <SongsList tracks={this.state.tracks} artist={this.state.artist} />
             <RelatedList />
           </div>
         </div>
-      </div>;
+      </div>
+    )
   }
 }
 
