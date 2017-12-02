@@ -31,8 +31,8 @@ app.post("/initArtists", (req, res) => {
 
 app.post("/initArtistByGenre", (req, res) => {
   let genre = req.body.genre;
-  console.log('genre in server', genre);
-  getArtistsByGenre(genre).then(artists => {
+  let city = req.body.city;
+  getArtistsByGenre(genre, city).then(artists => {
     res.json(artists);
   });
 });
