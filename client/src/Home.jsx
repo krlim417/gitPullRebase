@@ -156,6 +156,26 @@ class Home extends React.Component {
     });
   }
 
+  setSongsToFirstArtist() {
+    let artist = this.state.artists[0].username;
+    let artists = this.state.artists;
+    let dataObj = {
+      artist: artist,
+      artists: artists,
+    };
+    axios({
+      method: "post",
+      url: "/initTracks",
+      data: dataObj
+    }).then(returnedTracks => {
+      this.setState({
+        artist: artist,
+        artists: artists,
+        tracks: returnedTracks.data
+      });
+    });
+  }
+
   setArtistByGenre(genre) {
     axios({
       method: "post",
@@ -174,18 +194,17 @@ class Home extends React.Component {
           method: "post",
           url: "/initTracks",
           data: dataObj
-        }).then(returnedTracks => {
+        })
+        .then(returnedTracks => {
           this.setState({
             artist: artist,
-            artists: artists,
+            // artists: artists,
             tracks: returnedTracks.data
           });
         });
       } else {
         this.setState({
-          artist: '',
-          artists: '',
-          tracks: ''
+          tracks: []
         })
       }
     });
@@ -209,6 +228,7 @@ class Home extends React.Component {
     }).then(returnedArtists => {
       let artist = returnedArtists.data[0].username;
       let artists = returnedArtists.data;
+      console.log('initial artists', artists);
       let dataObj = {
         artist: artist,
         artists: artists
@@ -243,6 +263,7 @@ class Home extends React.Component {
             artistByGenre={this.state.artistByGenreData}
             handleGenreClick={this.setIsRenderingByGenre}
             searchArtistByGenre={this.setArtistByGenre}
+            setSongsToFirstArtist={this.setSongsToFirstArtist.bind(this)}
           />
           <br />
           <div className="row">

@@ -27,6 +27,7 @@ class genreFilter extends React.Component {
       newStateToSet.clicked = false;
       this.setState(newStateToSet);
       this.props.handleGenreClick(false);
+      this.props.setSongsToFirstArtist();
     } else {
       newStateToSet.genre = genre;
       newStateToSet.clicked = true;
