@@ -6,6 +6,7 @@ import ArtistList from "./Components/ArtistList.jsx";
 import RelatedList from "./Components/RelatedList.jsx";
 import SongsList from "./Components/SongsList.jsx";
 import axios from "axios";
+import pull from './Spotify/caller'
 
 class Home extends React.Component {
   constructor(props) {
@@ -143,15 +144,18 @@ class Home extends React.Component {
    * setArtist sets artist and tracks states of artist that was selected on the page using a POST request
    * @param {string} artist artist that is selected by user
    */
-  setArtist(artist) {
+  setArtist(artist, uri) {
     axios({
       method: "post",
       url: "/initTracks",
       data: { artist: artist }
-    }).then(tracks => {
+    }).then( (tracks) => {
+
+      pull(uri);
       this.setState({
         artist: artist,
         tracks: tracks.data
+        // need to set related artist data as well
       });
     });
   }

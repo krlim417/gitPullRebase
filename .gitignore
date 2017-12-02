@@ -37,3 +37,7 @@ config/
 # Database data
 Database/migrations
 Database/seeds
+
+## API KEYS ##
+src/Config/spotify.jsx
+

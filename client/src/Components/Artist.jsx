@@ -85,10 +85,10 @@ class Artist extends React.Component {
           className="artist-image"
           src={this.props.artist.image}
           alt="Artist Pic"
-          onClick={() => this.props.setArtist(this.props.artist.username)}
+          onClick={() => this.props.setArtist(this.props.artist.username, this.props.artist.uri)}
         />
         <div className="artist-text">
-          <div onClick={() => this.props.setArtist(this.props.artist.username)}>
+          <div onClick={() => this.props.setArtist(this.props.artist.username, this.props.artist.uri)}>
             {this.props.artist.username}
           </div>
           <a href={this.props.artist.uri}>
