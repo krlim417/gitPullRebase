@@ -19,11 +19,11 @@ class RelatedArtist extends React.Component {
           alt="Artist Pic"
         /> 
         <div className="artist-text">
-            <div>
+            <h4>
               {this.props.artist.name}
-            </div> 
+            </h4> 
             <a href={this.props.artist.uri}>
-             <div>Profile</div>
+             <div>Go to Profile</div>
            </a> 
          </div>
       </div>

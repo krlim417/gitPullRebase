@@ -5,12 +5,17 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './Reducer';
-import { getArtists } from "./Reducer/Artists/actions";
 import App from './App.jsx';
+import pull from "./Spotify/caller"
+import { setArtists } from "./Reducer/Artists/actions";;
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+
+pull("spotify:artist:1JPy5PsJtkhftfdr6saN2i", results => {
+  store.dispatch(setArtists(results.data.artists));
+});
 
 const RenderApp = () => {
   render(
