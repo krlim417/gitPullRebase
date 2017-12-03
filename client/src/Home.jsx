@@ -157,7 +157,6 @@ class Home extends React.Component {
       this.setState({
         artist: artist,
         tracks: tracks.data
-        // need to set related artist data as well
       });
     });
   }

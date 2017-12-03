@@ -88,11 +88,11 @@ class Artist extends React.Component {
           onClick={() => this.props.setArtist(this.props.artist.username, this.props.artist.uri)}
         />
         <div className="artist-text">
-          <div onClick={() => this.props.setArtist(this.props.artist.username, this.props.artist.uri)}>
+          <h4 onClick={() => this.props.setArtist(this.props.artist.username, this.props.artist.uri)}>
             {this.props.artist.username}
-          </div>
+          </h4>
           <a href={this.props.artist.uri}>
-            <div>Profile</div>
+            <div>Go to Profile</div>
           </a>
           <input
             className="bookBtn"

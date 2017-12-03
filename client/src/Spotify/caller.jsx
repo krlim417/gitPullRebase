@@ -1,5 +1,5 @@
 import axios from 'axios';
-import spotify from '../Config/spotify'
+import spotify from '../Config/spotify.jsx';
 
 const pull = (uri, callback) => {
   const id = uri.split(':')[2];
@@ -9,11 +9,12 @@ const pull = (uri, callback) => {
         Authorization: spotify.oAuth,
       },
     })
-    .then((responce) => { 
+    .then((responce) => {
       callback(responce);
+      console.log(responce);
     })
     .catch((error) => {
-      console.log('this is the error ---->', error);
+      console.log('error', error);
     });
 }
 export default pull;

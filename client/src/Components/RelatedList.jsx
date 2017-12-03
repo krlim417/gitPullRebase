@@ -5,22 +5,17 @@ import axios from 'axios';
 import RelatedArtist from "./RelatedArtist.jsx";
 
 const RelatedList = ( { artists } ) => {
-    return (
-      <div>
-        <h5>Related Artists List</h5>
-          <ul>
-            {artists.map(function(artist, index) {
-              return (
-                <li key={index}>
-                  <RelatedArtist 
-                   artist={artist}
-                  />
-                </li>
-              )
-            })}
-          </ul>
-      </div>
-    );
+    return <div className="artistList">
+        <h3>Related Artists List</h3>
+        <br/>
+          {artists.map(function(artist, index) {
+            return (
+            <div key={index}>
+                <RelatedArtist artist={artist} />
+              </div>
+            )
+          })}
+      </div>;
 }
 
 const mapStateToProps = ( { artists } ) => ({

@@ -6,7 +6,7 @@ import React from "react";
  * This is normal. Just a bug on the the Spotify Player.
  */
 const Song = props => (
-  <div className="song card">
+  <div className="artist-container">
     <iframe
       src={`https://open.spotify.com/embed?uri=spotify:track:${props.artist}`}
       frameBorder="0"

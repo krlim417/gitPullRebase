@@ -17,8 +17,8 @@ const SongsList = props => {
     render = <div>Loading...</div>;
   }
   return (
-    <div className="song-list">
-      <h5>Top Tracks for: {artist}</h5>
+    <div className="artistList">
+      <h3>Top Tracks for: {artist}</h3>
       <br />
       {render}
     </div>

@@ -10,8 +10,15 @@ html {
   font-family: 'Avenir Next' !important;
 }
 
-h5 {
+h3 {
   text-align: center;
+  padding: 5%;
+  height: 2%;
+  font-size: 150%;
+}
+
+h4 { 
+  font-size: 150%;
 }
 
 /*Landing Dock Styles*/
@@ -151,27 +158,38 @@ h5 {
 /*Artist Styles*/
 .bookBtn {
   background-color: #00d770;
-  border-color: black;
+  border-color: rgb(160, 139, 139);
   color: black;
-  font-weight: bold;
+  border-radius: 10px;
 }
 
 .bookBtn:hover {
   background-color: #03964f;
   cursor: pointer;
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 30px;
 }
 
 .artistList {
   display: block;
+  border: 1.5px solid rgba(175, 167, 167, 0.125);
+  border-radius: 5px;
+  padding: 1px;
+  background-color: #0301018f;
 }
 
 .artist-container {
   position: relative;
-  margin: 2px 0px 2px 5px;
+  margin: 2px 2px 2px 0px;
   background-color: #282828;
   height: 135px;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1.5px solid rgba(175, 167, 167, 0.125);
   border-radius: 5px;
+  width: auto;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .artist-container:hover {
@@ -224,6 +242,12 @@ hr {
 
 .song {
   background-color: #282828;
+}
+
+.song-list {
+  display: block;
+  border: 1px solid rgba(175, 167, 167, 0.125);
+
 }
 
 /*Modal Styles*/
