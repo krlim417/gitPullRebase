@@ -1,5 +1,5 @@
 import axios from 'axios';
-import spotify from '../Config/spotify'
+import spotify from '../Config/spotify.jsx';
 
 const pull = (uri, callback) => {
   const id = uri.split(':')[2];

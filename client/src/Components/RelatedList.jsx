@@ -7,7 +7,7 @@ import RelatedArtist from "./RelatedArtist.jsx";
 const RelatedList = ( { artists } ) => {
     return <div className="artistList">
         <h3>Related Artists List</h3>
-        <ul>
+        <br/>
           {artists.map(function(artist, index) {
             return (
             <div key={index}>
@@ -15,7 +15,6 @@ const RelatedList = ( { artists } ) => {
               </div>
             )
           })}
-        </ul>
       </div>;
 }
 

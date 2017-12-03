@@ -12,8 +12,8 @@ html {
 
 h3 {
   text-align: center;
-  padding: 10px;
-  height: 4.5%;
+  padding: 5%;
+  height: 2%;
   font-size: 150%;
 }
 
@@ -182,13 +182,14 @@ h4 {
 
 .artist-container {
   position: relative;
-  margin: 2px 2px 2px 2px;
+  margin: 2px 2px 2px 0px;
   background-color: #282828;
   height: 135px;
   border: 1.5px solid rgba(175, 167, 167, 0.125);
   border-radius: 5px;
   width: auto;
-  padding: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .artist-container:hover {
@@ -290,8 +291,4 @@ hr {
 
 .text-center {
   margin-top: 15px;
-}
-
-div {
-  padding: 2px;
 }
